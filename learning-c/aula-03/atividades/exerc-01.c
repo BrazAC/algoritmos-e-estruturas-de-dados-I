@@ -18,20 +18,25 @@ int main(){
     int vet1[TAM_VET], vet2[TAM_VET], vetSoma[TAM_VET];
 
     //Inicializando vetores
-    for(int i = 0; i <= 5; i++){
-        vet1[i] = i;
-        vet2[i] = i;
+    printf("Insira valores para o vetor1:\n");
+    for(int i = 0; i < 5; i++){
+        scanf("%d", &vet1[i]);
+    }
+
+    printf("Insira valores para o vetor2:\n");
+    for(int i = 0; i < 5; i++){
+        scanf("%d", &vet2[i]);
     }
 
     //Somando valores e guardando em vetSoma
-    for(int i = 0; i<=5; i++){
-        vetSoma[i] = vet1[i] + vet2[i];
+    for(int i = 0; i<5; i++){
+        vetSoma[i] = vet1[i] + vet2[(TAM_VET - 1) - i];
     }
 
     //Encontrar maior e menor valor do vetor soma
     int maior = vetSoma[0];
     int menor = vetSoma[0];
-    for(int j = 0; j <= 5; j++){
+    for(int j = 0; j < 5; j++){
         //Descobrindo maior
         if(maior < vetSoma[j]){
             maior = vetSoma[j];
@@ -45,19 +50,19 @@ int main(){
 
     //Mostrando vetores
     printf("Vet1: ");
-    for(int i = 0; i <= 5; i++){
+    for(int i = 0; i < 5; i++){
         printf("| %d ",vet1[i]);
     }
     printf("|\n");
 
     printf("Vet2: ");
-    for(int i = 0; i <= 5; i++){
+    for(int i = 0; i < 5; i++){
         printf("| %d ",vet2[i]);
     }
     printf("|\n");
 
     printf("Soma: ");
-    for(int i = 0; i <= 5; i++){
+    for(int i = 0; i < 5; i++){
         printf("| %d ",vetSoma[i]);
     }
     printf("|\n");
