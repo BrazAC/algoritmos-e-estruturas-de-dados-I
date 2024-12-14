@@ -1,3 +1,10 @@
+/*
+UFMT
+Aluno: Braz Amorim
+Disciplina: EDI
+Professor: Ivairton
+*/
+
 #include <stdio.h>
 
 #define TAM_vet 2

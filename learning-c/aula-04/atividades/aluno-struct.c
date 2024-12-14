@@ -1,3 +1,10 @@
+/*
+UFMT
+Aluno: Braz Amorim
+Disciplina: EDI
+Professor: Ivairton
+*/
+
 #include <stdio.h>
 
 #define QUAT_CADASTROS 3

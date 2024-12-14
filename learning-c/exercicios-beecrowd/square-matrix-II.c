@@ -21,10 +21,11 @@ int main(){
         sizes[cont - 1] = mtzSize;
         //Obter valor da tamanho da matriz (sentinela)
         scanf("%d", &mtzSize);
-        //Atualizar contador
-        cont ++;
-        //Se o tamanho for diferente de zero aumentar o tamanho do vetor
+        //Se o tamanho for diferente de zero 
         if (mtzSize != 0) {
+            //Atualizar contador
+            cont ++;
+            //aumentar o tamanho do vetor
             int *temp = (int*)realloc(sizes, cont * sizeof(int));
             sizes = temp;
         }
@@ -34,7 +35,7 @@ int main(){
     for (int i = 0; i < cont; i++) {
         //Obtendo tamanho da matriz da vez
         mtzSize = sizes[i];
-        
+
         //Criar matriz de inteiros do tamanho da sentinela
         //Criar linhas (vetor de ponteiros)
         int **mtz = (int**)malloc(mtzSize * sizeof(int**));
@@ -75,10 +76,10 @@ int main(){
             for (int j = 0; j < mtzSize; j++) {
                 if (j == (mtzSize - 1)) {
                     //Apos o ultimo elemento de cada coluna nao deve ter um espaco
-                    printf("%d\n", mtz[i][j]);
+                    printf("%3d\n", mtz[i][j]);
                 }else{
                     //Separar cada elemento entre si com um espaco
-                    printf("%d ", mtz[i][j]);
+                    printf("%3d ", mtz[i][j]);
                 }
             }
         }
