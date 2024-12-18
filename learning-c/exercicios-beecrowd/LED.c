@@ -16,14 +16,14 @@ int main(){
         scanf("%u", &numeros[i]);
     }
 
+    //Inicializar somaLed com 0
+    int somaLed = 0;
     //Repetir N vezes
     for (int i = 0; i < N; i++) {
         //- Obter numero que sera representado em leds, guardar em numero
         unsigned int val = numeros[i];
         
         //- Obter quantidade de leds, guardar em somaLed
-        //Inicializar somaLed com 0
-        int somaLed = 0;
         //Iterar pelos algarismos de numero, realizar somatorio dos valores armazenados na posicao algarismo em ledsNum[algarismo]
             //Seprar algarismo, atualizar numero, atualizar somaLed
                 int cont = 0, algarismo;
@@ -47,6 +47,8 @@ int main(){
                 }
         //Mostrar valor armazenado em somaLed
         printf("%d leds\n", somaLed);
+        //Zerar soma led
+        somaLed = 0;
     }
     
 
