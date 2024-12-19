@@ -6,6 +6,11 @@ int main(){
     int n, pos;
     scanf("%d", &n);
     //Repetir a quantidade de entrada vezes:
+    /*
+    Obs: Ja testei guardar as entradas em um vetor e iterar retornando os valores correspondentes
+    mas nao funciona de qualquer forma, o Gregorio tambem fez a mesma coisa e nao da certo em 
+    com e sem o uso de um vetor pra guardar as entradas
+    */
     for (int i = 0; i < n; i++){
         //Obter posicao da sequencia desejada
         scanf("%d", &pos);
