@@ -9,7 +9,7 @@ int main(){
 
     //Alocar memoria para matriz de inteiros de dimensao Nx3, nomear mtzCoordenadas
     //Alocando linhas
-    int **mtzCoordenadas = (int**)malloc(N * sizeof(int**));
+    int **mtzCoordenadas = (int**)malloc(N * sizeof(int*));
     //Alocando colunas
     for (int i = 0; i < N; i++) {
         mtzCoordenadas[i] = (int*)malloc(3 * sizeof(int));
@@ -29,12 +29,14 @@ int main(){
             }
         }
     }
-        
+    
+    
+
     //Classificar distancias entre A, M e B
         //Repetir N vezes (fazer para todas as linhas)
         for (int i = 0; i < N; i++) {
             //Alocar memoria e criar vetDistancias[N - 1]
-            double *vetDistancias = (double*)malloc((N - 1) * sizeof(double));
+            float *vetDistancias = (float*)malloc((N - 1) * sizeof(float));
 
             //Extrair coordenadas da nave atual, guardar em x, y, z
             int x = mtzCoordenadas[i][0];
@@ -57,23 +59,31 @@ int main(){
             }
             
             //Encontrar a menor distancia em vetDistancias, guardar em menorDistancia
-            int menorDistancia = vetDistancias[0];
+            float menorDistancia = vetDistancias[0];
             for (int j = 0; j < (N - 1); j++) {
                 if (vetDistancias[j] < menorDistancia) {
                     menorDistancia = vetDistancias[j];
                 }
             }
 
+            //Mostrar menor distancia
+            //printf("Menor distancia: %f\n", menorDistancia);
+
             //Classificar e mostrar a classificacao de menorDistancia (A, M ou B)
             if (menorDistancia <= 20) {
                 printf("A\n");
-            } else if (menorDistancia <= 50) {
+            } else if (menorDistancia > 20 && menorDistancia <= 50) {
                 printf("M\n");
-            }else{
+            }else if (menorDistancia > 50){
                 printf("B\n");
             }
         }
-            
-
+    /*
+    //Mostrar matriz
+    printf("\n");
+    for (int i = 0; i < N; i++) {
+        printf("%d %d %d\n", mtzCoordenadas[i][0], mtzCoordenadas[i][1], mtzCoordenadas[i][2]);
+    }
+    */
     return 0;
 }

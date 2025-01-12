@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*
+Essa versao 1 funciona apenas para certos casos pois trabalha com operacoes algebricas e nao a string
+que representa o numero informado.
+*/ 
+
 int main(){
     //Obter quantidade paineis, guardar em N
     int N;
