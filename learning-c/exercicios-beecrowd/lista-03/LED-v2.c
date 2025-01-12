@@ -3,6 +3,7 @@
 #include <math.h>
 
 /*
+<->
 Essa versao 2 funciona para qualquer caso pois atua com os characteres da string que representa
 o numero informado.
 */ 
