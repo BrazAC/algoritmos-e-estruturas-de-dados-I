@@ -46,7 +46,7 @@ int* copiaVetor(int *vetorOriginal, int tamanho){
 
     int *vetorCopia = (int*)malloc(tamanho * sizeof(int));
 
-    for (int i = 0; i < tamanho; i++) vetorOriginal[i] = vetorOriginal[i];
+    for (int i = 0; i < tamanho; i++) vetorCopia[i] = vetorOriginal[i];
 
     return vetorCopia;
 }
