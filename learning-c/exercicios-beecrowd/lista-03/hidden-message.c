@@ -27,41 +27,54 @@ int main(){
         //Retirar \n se esse existir
         if (frase[tamanhoFrase - 1] == '\n'){
             frase[tamanhoFrase - 1] = '\0';
+            tamanhoFrase --;
         }
 
-        //-- Identificar mensagem escondida
-        //Inicializar var control
-        int posicaoInicialFrase = 0, posicaoInicialHiddenMessage = 0;
-        //Verificar primeiro char de frase, se for != de espaco
-        if(frase[0] != ' '){
-            //hiddenMessage[0] = primeiro char de frase
-            hiddenMessage[0] = frase[0];
-            //Atualizar control
-            posicaoInicialFrase = 1;
-            posicaoInicialHiddenMessage = 1;
-        }
-
-        //Iterar por frase a partir do segundo char
-        int i = posicaoInicialFrase;
-        int contadorHiddenMessage = posicaoInicialHiddenMessage;
-        while (frase[i] != '\0'){
-            //Se encontrar char == espaco
-            if (frase[i] == ' ' && frase[i + 1] != ' ') {
-                //Se o proximo char for != de espaco
-                    //hiddenMessage[count] = proximo char
-                    hiddenMessage[contadorHiddenMessage] = frase[i + 1];
-                    //Aumentar o valor de count em um
-                    contadorHiddenMessage ++;
+        //--Verificar se a frase e apenas espacos vazios
+        int mensagemVazia = 1, contadorVazia = 0;
+        while(frase[contadorVazia] != '\0'){
+            if (frase[contadorVazia] != ' ') {
+                mensagemVazia = 0;
+                break;
             }
-            i ++;
+            contadorVazia ++;
         }
 
-        //Indicar o fim de hiddenMessage
-        //hiddenMessage[count + 1] = '\0'
-        hiddenMessage[contadorHiddenMessage] = '\0';
+        //-- Caso a frase nao seja vazia: Identificar mensagem escondida
+        if (mensagemVazia == 0) {
+            //Inicializar var control
+            int posicaoInicialFrase = 0, posicaoInicialHiddenMessage = 0;
+            //Verificar primeiro char de frase, se for != de espaco
+            if(frase[0] != ' '){
+                //hiddenMessage[0] = primeiro char de frase
+                hiddenMessage[0] = frase[0];
+                //Atualizar control
+                posicaoInicialFrase = 1;
+                posicaoInicialHiddenMessage = 1;
+            }
 
-        //-- Mostrar o conteudo de hiddenMessage
-        printf("%s\n", hiddenMessage);
+            //Iterar por frase a partir do segundo char
+            int i = posicaoInicialFrase;
+            int contadorHiddenMessage = posicaoInicialHiddenMessage;
+            while (frase[i] != '\0'){
+                //Se encontrar char == espaco
+                if (frase[i] == ' ' && frase[i + 1] != ' ') {
+                    //Se o proximo char for != de espaco
+                        //hiddenMessage[count] = proximo char
+                        hiddenMessage[contadorHiddenMessage] = frase[i + 1];
+                        //Aumentar o valor de count em um
+                        contadorHiddenMessage ++;
+                }
+                i ++;
+            }
+
+            //Indicar o fim de hiddenMessage
+            //hiddenMessage[count + 1] = '\0'
+            hiddenMessage[contadorHiddenMessage] = '\0';
+
+            //-- Mostrar o conteudo de hiddenMessage
+            printf("%s\n", hiddenMessage);
+        }
     }
 
     return 0;
