@@ -6,10 +6,12 @@
 #define MAXSIZE 5
 
 //Queue data structure definition
-typedef struct type_queue{
+struct type_queue{
     char queue[MAXSIZE];
     int counter;
-} type_queue;
+};
+
+typedef type_queue type_queue;
 
 //Functions proto
 void insertIntoQueue(type_queue *, char);

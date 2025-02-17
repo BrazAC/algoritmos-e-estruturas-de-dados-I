@@ -40,8 +40,6 @@ int main(){
     
     vetEntradasIniciais[0] = entradaInicial;
 
-    //PONTO DE QUEBRA (ate aqui funciona)
-
     int cont = 0; 
     while (vetEntradasIniciais[cont][0] != '0') {
         //Aumentar capacidade de vetEntradasIniciais
