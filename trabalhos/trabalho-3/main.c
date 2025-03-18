@@ -1,28 +1,22 @@
+/*
+Universidade federal de Mato Grosso - Campus Araguaia
+Trabalho de ED1
+Alunos: Braz Amorim
+        Gregório Tavares
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "funcoes.h"
 #include <string.h>
 #include <math.h>
-
-/*
-Trabalho de ED1
-Alunos: Braz Amorim
-        Gregório Tavares
-        
-*/
-
-
-/*
-Creating a new file – fopen() with attributes as “a” or “a+” or “w” or “w+”
-Opening an existing file – fopen()
-Reading from file – fscanf() or fgets()
-Writing to a file – fprintf() or fputs()
-Moving to a specific location in a file – fseek(), rewind()
-Closing a file – fclose()
-*/
+#include <time.h>
 
 int main(int argc, char *argv[]){
     char* quantElementos = argv[1]; 
+    
+    //Semente de números aleatórios
+    srand(time(NULL));
     
     //==VERIFICACAO ARGC
     if (argc == 2) {
@@ -41,26 +35,33 @@ int main(int argc, char *argv[]){
         }
 
         //==REPETIR 5 VEZES
+        for (int i = 1; i <= 5; i++){
             //==Criar lista
             lista_estatica lista;
             lista.contador = 0;
-
-            //==Inicializar lista
-            inserir_lista(&lista);
-                //Repetir quantElementos vezes
-                    //faca
-                        //Gera valor aleatorio
-                        //Itera pela lista conferindo se ha o numero aleatorio
-                    //enquanto (valor gerado existir na lista)
-                    //Inserir no final da lista o valor aleatorio gerado
-
+            
+            //==Preencher lista
+            lista_inicializaEmbaralha(&lista, quantElementosInt);
+            
             //==Criar arquivo com valores da lista
-                //Chamar a funcao que cria arquivo
-                //0bs: Seguir padrão de nome
+            //Gerar o nome do arquivo
+            char numChar = i + '0';
+            char *nomeArquivo = malloc(sizeof(char) * 50);
+            strcpy(nomeArquivo, "./arquivos/");
+
+            strcat(nomeArquivo, quantElementos);
+            strcat(nomeArquivo, "-arq ");
+            nomeArquivo[strlen(nomeArquivo) - 1] = numChar;
+            strcat(nomeArquivo, ".txt");
+
+            //Chamar a funcao que cria arquivo
+            arquivo_gera(&lista, nomeArquivo);
+
+            free(nomeArquivo);
+        }
     }
     else{
         printf("[ERRO] Quantidade de argumentos invalida\n");
     }
 
-    return 0;
 }

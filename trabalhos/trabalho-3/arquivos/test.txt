@@ -1,5 +1,0 @@
-dado1
-dado2
-dado3
-dade4
-..
