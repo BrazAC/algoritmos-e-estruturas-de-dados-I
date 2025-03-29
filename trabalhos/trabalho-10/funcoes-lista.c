@@ -65,6 +65,8 @@ void posicionaPonteiro_proxNewLine(FILE* arquivo){
 void extraiMovieID(char linhaCSV[], int *movieId){
     char movieIDstr[10];
     int cont = 0;
+
+    //Movendo da esquerda pra direita ate uma virgula
     while(linhaCSV[cont] != ','){
         movieIDstr[cont] = linhaCSV[cont]; 
         cont ++;
@@ -95,7 +97,53 @@ void extraiYear(char linhaCSV[], int *year){
         pos ++;
     }
     yearStr[cont] = '\0';
-    printf("String: %s\n", yearStr);
+    //printf("String: %s\n", yearStr);
 
     *year = atoi(yearStr);
+}
+
+void extraiGenres(char linhaCSV[], char genres[]){
+    int tamLinha = strlen(linhaCSV);
+    int pos;
+
+    //Posicionar pos em cima do primeiro , da esquerda pra direita
+    for (pos = (tamLinha - 1); pos >= 0; pos --) {
+        if (linhaCSV[pos] == ',') break; 
+    }
+
+    //Extrair generos
+    int cont = 0;
+    //Mover pos para cima do char a frente
+    pos ++;
+    //Copiar char apenas se for um char entre 0 e 9 e antes de )
+    while(linhaCSV[pos] != '\0'){
+        genres[cont] = linhaCSV[pos];
+        cont ++;
+        pos ++;
+    }
+    genres[cont] = '\0';
+}
+
+void extraiName(char linhaCSV[], char name[]){
+    int cont = 0, pos = 0;
+
+    //Movendo da esquerda pra direita ate uma virgula
+    while(linhaCSV[cont] != ','){
+        cont ++;
+    }
+    
+    //Mover cont pra prox char
+    cont ++;
+    
+    //Copiar char apenas se for um char antes de (
+    while(linhaCSV[cont] != '('){
+        name[pos] = linhaCSV[cont];
+        cont ++;
+        pos ++;
+    }
+    //Finalizar string removendo espaco
+    name[pos - 1] = '\0';
+    //printf("String: %s\n", yearStr);
+
+    name[cont + 1] = '\0';
 }

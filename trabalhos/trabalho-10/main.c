@@ -57,17 +57,24 @@ int main(){
         
         //Extraindo movieId
         extraiMovieID(linhaCSV, &movieId);
-        printf("Id: %d\n", movieId);
+        //printf("Id: %d\n", movieId);
 
         //Extraindo year
         extraiYear(linhaCSV, &year);
-        printf("Year: %d\n", year);
+        //printf("Year: %d\n", year);
+
+        //Entraindo genres
+        extraiGenres(linhaCSV, genres);
+        //printf("Genres: %s\n", genres);
+
+        //Extraindo nome
+        extraiName(linhaCSV, title);
+        //printf("Title: %s\n", title);
 
         //cont --;
-        /*
         listaMovies_insereFinal(&listaFilmes, movieId, title, genres, year);
-        printf("MovieId:%d-Title:%s-Year:%d-Genres:%s", movieId, title, year, genres);
-        
+        printf("MovieId:%d-Title:%s-Year:%d-Genres:%s\n", movieId, title, year, genres);
+        /*
         contLeituras ++;
         printf("Leitura %d realizada, faltando %d leituras\n", contLeituras, (MAX_ELEM_MOVIES_CSV - contLeituras));
         printf("\033[1A");
