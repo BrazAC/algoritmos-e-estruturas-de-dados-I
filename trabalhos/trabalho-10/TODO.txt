@@ -1,0 +1,3 @@
+- Consertar void extraiYear(char[], int*); 
+    Existem leituras do ano falhando pois yearStr fica vazia apos seu loop de 
+    preenchimento e atoi() acaba retornando 0 pelo erro;
