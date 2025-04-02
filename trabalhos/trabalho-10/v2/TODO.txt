@@ -1,0 +1,16 @@
+- Consertar void extraiYear(char[], int*); 
+    Existem leituras do ano falhando pois yearStr fica vazia apos seu loop de 
+    preenchimento e atoi() acaba retornando 0 pelo erro;
+
+
+Como assim ordenar por nome?
+Tem que pegar o nome inteiro (incluindo coisas entre parenteses?). 
+    Se sim, como?
+    Se nao, eu fiz pegando ate antes do primeiro '('
+R: Ordenar por ordem alfabética (Quick sort com strcmp())
+
+Programa ficando sem memoria, usando mais de 6gb.
+    Pode armazenar blocos menores ou necessariamente todas as linhas devem ser carregadas no programa?
+    Eu consigo 
+R: Não é pra armazenar todas as avaliações, apenas a média de avaliação por filme, ao inves de
+um struct por avaliacao, faca um struct para cada filme com sua média avaliativa
