@@ -5,7 +5,7 @@
 #include "funcoes-lista.h"
 
 int main(){
-    //==Inicializar listas com vetor dinamico
+    //===Inicializar listas com vetor estatico
     est_lista listaAvaliacoes;
     listaAvaliacoes.lista = (est_rating*)malloc(MAX_ELEM_MOVIES_CSV * sizeof(est_rating)); 
     listaAvaliacoes.cont = 0;
@@ -53,7 +53,7 @@ int main(){
     //---Extraindo de ratings.csv 
     FILE *ratingsCSV = fopen("./base-de-dados/ml-32m/ratings.csv", "r");
     int cont;
-    int contExtracoes = 250;
+    int contExtracoes = 100;
     float tempRating = 0;
     tam = 10 + 10 + 10 + 20;
     char linhaRatingCSV[tam];
@@ -112,6 +112,7 @@ int main(){
     tempo_decorrido2 = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
     printf("\nO tempo decorrido para extracao de ratings foi: %f segundos\n\n", tempo_decorrido2);  
 
+    
     //Calcular a media rating para cada struct
     double tempo_decorrido3;
     inicio = clock();
@@ -128,23 +129,19 @@ int main(){
     fim = clock();
     tempo_decorrido3 = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
     printf("\nO tempo decorrido de para o calculo de medias foi: %f segundos\n\n", tempo_decorrido3); 
-
+   
     fclose(ratingsCSV);
 
     //Mostrando primeiros x's elementos da lista de ratings
-    lista_mostraX(&listaAvaliacoes, 25);
+    lista_mostraX(&listaAvaliacoes, 10);
 
-    printf("Depois de ordenar por rating: \n");
-    ordenaCustom(&listaAvaliacoes, 'q', 'r');
-    lista_mostraX(&listaAvaliacoes, 25);
-
-    printf("Depois de ordenar por year: \n");
-    ordenaCustom(&listaAvaliacoes, 'q', 'y');
-    lista_mostraX(&listaAvaliacoes, 25);
-    
-    printf("Depois de ordenar por name: \n");
     ordenaCustom(&listaAvaliacoes, 'q', 'n');
-    lista_mostraX(&listaAvaliacoes, 25);
+
+    ordenaCustom(&listaAvaliacoes, 'q', 'r');
+
+    ordenaCustom(&listaAvaliacoes, 'm', 'n');
+
+    //===Interface do usuario
     
 
     return 0;

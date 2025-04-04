@@ -45,6 +45,7 @@ void lista_mostraX(est_lista *lista, int quant){
             lista->lista[i].year,
             lista->lista[i].genres);
     }
+    printf("\n");
 }
 
 //Manipulação dos arquivos
@@ -220,26 +221,113 @@ void extraiRating(char linhaCSV[], float *rating){
 
 //Ordenacao
 int ordenaCustom(est_lista *lista, char opAlg, char opInfo){
+    //Preparacao para cronometrar o tempo
+    double tempo_decorrido = 0.0;
+    clock_t inicio, fim;
+
+    //Ordenacao
     if (opAlg == 'q') {
         if (opInfo == 'y') {
+            printf("[QUICK SORT] Iniciando ordenacao por year...\n");
+            inicio = clock();
             quick_SortYear(lista, 0, lista->cont - 1);
+            fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
+            printf("[QUICK SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
         }
         else if (opInfo == 'r'){
+            printf("[QUICK SORT] Iniciando ordenacao por rating...\n");
+            inicio = clock();
             quick_SortRating(lista, 0, lista->cont - 1);
+            fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
+            printf("[QUICK SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
         }
         else if (opInfo == 'n'){
+            printf("[QUICK SORT] Iniciando ordenacao por name...\n");
+            inicio = clock();
             quick_SortString(lista, 0, lista->cont - 1);
+            fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
+            printf("[QUICK SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
         }
         else{
+            printf("[ERRO] Escolha uma parametro de ordenacao valido\n");
             return -2;
         }
+
+        lista_mostraX(lista, 10);
+    }
+    else if (opAlg == 's'){
+        if (opInfo == 'y') {
+            printf("[SHELL SORT] Iniciando ordenacao por year...\n");
+            inicio = clock();
+            shell_SortYear(lista);
+            fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
+            printf("[SHELL SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
+        }
+        else if (opInfo == 'r'){
+            printf("[SHELL SORT] Iniciando ordenacao por rating...\n");
+            inicio = clock();
+            shell_SortRating(lista);
+            fim = clock();
+            printf("[SHELL SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
+        }
+        else if (opInfo == 'n'){
+            printf("[SHELL SORT] Iniciando ordenacao por name...\n");
+            inicio = clock();
+            shell_SortString(lista);
+            fim = clock();
+            printf("[SHELL SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
+        }
+
+        else{
+            printf("[ERRO] Escolha uma parametro de ordenacao valido\n");
+            return -2;
+        }
+
+        lista_mostraX(lista, 10);
+    }
+    else if (opAlg == 'm'){
+        if (opInfo == 'y') {
+            printf("[MERGE SORT] Iniciando ordenacao por year...\n");
+            inicio = clock();
+            merge_SortYear(lista, 0, lista->cont - 1);
+            fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
+            printf("[MERGE SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
+        }
+        else if (opInfo == 'r'){
+            printf("[MERGE SORT] Iniciando ordenacao por rating...\n");
+            inicio = clock();
+            merge_SortRating(lista, 0, lista->cont - 1);
+            fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
+            printf("[MERGE SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
+        }
+        else if (opInfo == 'n'){
+            printf("[MERGE SORT] Iniciando ordenacao por name...\n");
+            inicio = clock();
+            merge_SortString(lista, 0, lista->cont - 1);
+            fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
+            printf("[MERGE SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
+        }
+        else{
+            printf("[ERRO] Escolha uma parametro de ordenacao valido\n");
+            return -2;
+        }
+
+        lista_mostraX(lista, 10);
     }
     else{
+        printf("[ERRO] Escolha uma metodo de ordenacao valido\n");
         return -1;     
     }
 }
 
-//Quick sort (bendita implementacao de hoare NAO DO OUTRO CARA LA)
+//Quick sort (Hoare)
 void quick_SortYear(est_lista *lista, int e, int d){
     if (d > e) {
         int j = sortYear(lista, e, d);
@@ -332,4 +420,241 @@ int sortString(est_lista *lista, int e, int d){
         lista->lista[i] = lista->lista[j];
         lista->lista[j] = temp;
     }
+}
+
+//Shell sort
+void shell_SortYear(est_lista *lista){
+    int salto = lista->cont / 2;
+    int flag;
+    est_rating temp;
+    do{
+        flag = 0;
+        for (int i = 0; i < ((lista->cont - 1) - salto); i++) {
+            if (lista->lista[i].year > lista->lista[i + salto].year) {
+                temp = lista->lista[i];
+                lista->lista[i] = lista->lista[i + salto];
+                lista->lista[i + salto] = temp;
+                
+                flag = 1;
+            }
+        }
+        if(salto > 1){
+            salto = salto / 2;
+        }
+
+    }while(flag);
+}
+void shell_SortRating(est_lista *lista){
+    int salto = lista->cont / 2;
+    int flag;
+    est_rating temp;
+    do{
+        flag = 0;
+        for (int i = 0; i < ((lista->cont - 1) - salto); i++) {
+            if (lista->lista[i].averageRating > lista->lista[i + salto].averageRating) {
+                temp = lista->lista[i];
+                lista->lista[i] = lista->lista[i + salto];
+                lista->lista[i + salto] = temp;
+                
+                flag = 1;
+            }
+        }
+        if(salto > 1){
+            salto = salto / 2;
+        }
+
+    }while(flag);
+}
+void shell_SortString(est_lista *lista){
+    int salto = lista->cont / 2;
+    int flag;
+    est_rating temp;
+    do{
+        flag = 0;
+        for (int i = 0; i < ((lista->cont - 1) - salto); i++) {
+            if (strcmp(lista->lista[i].title, lista->lista[i + salto].title) > 0) {
+                temp = lista->lista[i];
+                lista->lista[i] = lista->lista[i + salto];
+                lista->lista[i + salto] = temp;
+                
+                flag = 1;
+            }
+        }
+        if(salto > 1){
+            salto = salto / 2;
+        }
+
+    }while(flag);
+}
+
+//Merge sort
+void merge_SortYear(est_lista *lista, int e, int d){
+    if (d > e){
+        int meio = e + (d - e) / 2;
+        merge_SortYear(lista, e, meio);
+        merge_SortYear(lista, meio + 1, d);
+        mergeYear(lista, e, meio, d);
+    }
+}
+void mergeYear(est_lista *lista, int e, int meio, int d){
+    int i = 0, j = 0, k = e;
+
+    //Calcular tamanho vetores auxialiress
+    int n1 = meio - e + 1;
+    int n2 = d - meio;
+    //Vetores aux alocados pra nao causar seg. fault. por falta de memoria na stack
+    est_rating *L = malloc(n1 * sizeof(est_rating));
+    est_rating *R = malloc(n2 * sizeof(est_rating));
+    
+    //Preencher vetores auxiliares
+    for (int i = 0; i < n1; i++){
+        L[i] = lista->lista[e + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        R[j] = lista->lista[meio + 1 + j];
+    }
+    
+    //Mesclar L[] e R[]
+    while(i < n1 && j < n2){
+        if (L[i].year < R[j].year) {
+            lista->lista[k] = L[i];
+            i ++;
+        }
+        else{
+            lista->lista[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    
+    //Copiar elementos restantess em L se existir
+    while(i < n1){
+        lista->lista[k] = L[i];
+        i++;
+        k++;
+    }
+    //Copiar os elementos restantes em R se existir
+    while(j < n2){
+        lista->lista[k] = R[j];
+        j++;
+        k++;
+    }
+    
+    //Liberar L e R
+    free(L);
+    free(R);
+}
+
+void merge_SortRating(est_lista *lista, int e, int d){
+    if (d > e){
+        int meio = e + (d - e) / 2;
+        merge_SortRating(lista, e, meio);
+        merge_SortRating(lista, meio + 1, d);
+        mergeRating(lista, e, meio, d);
+    }
+}
+void mergeRating(est_lista *lista, int e, int meio, int d){
+    int i = 0, j = 0, k = e;
+
+    //Calcular tamanho vetores auxialiress
+    int n1 = meio - e + 1;
+    int n2 = d - meio;
+    //Vetores aux alocados pra nao causar seg. fault. por falta de memoria na stack
+    est_rating *L = malloc(n1 * sizeof(est_rating));
+    est_rating *R = malloc(n2 * sizeof(est_rating));
+    
+    //Preencher vetores auxiliares
+    for (int i = 0; i < n1; i++){
+        L[i] = lista->lista[e + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        R[j] = lista->lista[meio + 1 + j];
+    }
+    
+    //Mesclar L[] e R[]
+    while(i < n1 && j < n2){
+        if (L[i].averageRating < R[j].averageRating) {
+            lista->lista[k] = L[i];
+            i ++;
+        }
+        else{
+            lista->lista[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    
+    //Copiar elementos restantess em L se existir
+    while(i < n1){
+        lista->lista[k] = L[i];
+        i++;
+        k++;
+    }
+    //Copiar os elementos restantes em R se existir
+    while(j < n2){
+        lista->lista[k] = R[j];
+        j++;
+        k++;
+    }
+    
+    //Liberar L e R
+    free(L);
+    free(R);
+}
+
+void merge_SortString(est_lista *lista, int e, int d){
+    if (d > e){
+        int meio = e + (d - e) / 2;
+        merge_SortString(lista, e, meio);
+        merge_SortString(lista, meio + 1, d);
+        mergeString(lista, e, meio, d);
+    }
+}
+void mergeString(est_lista *lista, int e, int meio, int d){
+    int i = 0, j = 0, k = e;
+
+    //Calcular tamanho vetores auxialiress
+    int n1 = meio - e + 1;
+    int n2 = d - meio;
+    //Vetores aux alocados pra nao causar seg. fault. por falta de memoria na stack
+    est_rating *L = malloc(n1 * sizeof(est_rating));
+    est_rating *R = malloc(n2 * sizeof(est_rating));
+    
+    //Preencher vetores auxiliares
+    for (int i = 0; i < n1; i++){
+        L[i] = lista->lista[e + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        R[j] = lista->lista[meio + 1 + j];
+    }
+    
+    //Mesclar L[] e R[]
+    while(i < n1 && j < n2){
+        if (strcmp(L[i].title, R[j].title) < 0) {
+            lista->lista[k] = L[i];
+            i ++;
+        }
+        else{
+            lista->lista[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    
+    //Copiar elementos restantess em L se existir
+    while(i < n1){
+        lista->lista[k] = L[i];
+        i++;
+        k++;
+    }
+    //Copiar os elementos restantes em R se existir
+    while(j < n2){
+        lista->lista[k] = R[j];
+        j++;
+        k++;
+    }
+    
+    //Liberar L e R
+    free(L);
+    free(R);
 }
