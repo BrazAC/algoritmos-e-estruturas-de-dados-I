@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <ctype.h>
 #include "funcoes-lista.h"
 
 //==Manipulação da lista
@@ -70,7 +71,7 @@ void extraiMovieID(char linhaCSV[], int *movieId){
 
     *movieId = atoi(movieIDstr);
 }
-
+/*
 void extraiYear(char linhaCSV[], int *year){
     char yearStr[10];
     int tamLinha = strlen(linhaCSV);
@@ -79,17 +80,41 @@ void extraiYear(char linhaCSV[], int *year){
 
     //Iterar da direita pra esquerda procurando um ','
     for (pos = (tamLinha - 1); pos >= 0; pos --) {
-        if (linhaCSV[pos] == ','){ 
-            //Quando encontrar, verificar se o char 6 posicoes a esquerda e um '(' 
-            //e o char 5 posicoes a esquerda e um algarismo (0->9)
-            if (linhaCSV[pos - 6] == '(' && linhaCSV[pos - 5] >= 48 && linhaCSV[pos - 5] <= 57) {
-                //printf("Letra: %c\n", linhaCSV[pos - 6]);
-                //Se for um algarismo, coletar a data (mudar a flag)
-                break;
+        if (linhaCSV[pos] == ','){
+            if(linhaCSV[pos - 1] == ')'){
+                //Quando encontrar, verificar se o char 6 posicoes a esquerda e um '(' 
+                //e o char 5 posicoes a esquerda e um algarismo (0->9)
+                if (linhaCSV[pos - 6] == '(' && linhaCSV[pos - 5] >= 48 && linhaCSV[pos - 5] <= 57) {
+                    //printf("Letra: %c\n", linhaCSV[pos - 6]);
+                    //Se for um algarismo, coletar a data (mudar a flag)
+                    break;
+                }
+                else{
+                    *year = 9999;
+                    return;
+                }
             }
-            else{
-                *year = 9999;
-                return;
+            //Tem aspas a esquerda da virgula
+            else if(linhaCSV[pos - 1] == '"' && linhaCSV[pos - 2] == ')'){ 
+                if (linhaCSV[pos - 7] == '(' && linhaCSV[pos - 6] >= 48 && linhaCSV[pos - 6] <= 57) {
+                    printf("Letra: %c%c%c%c\n", linhaCSV[pos - 7], linhaCSV[pos - 6], linhaCSV[pos - 5], linhaCSV[pos - 4]);
+                    break;
+                }
+                else{
+                    printf("Letra: %c\n", linhaCSV[pos - 7]);
+                    *year = 9999;
+                    return;
+                }
+            }
+            //Tem aspas e espaco a esquerda da virgula
+            else if(linhaCSV[pos - 1] == '"' && linhaCSV[pos - 2] == ' ' && linhaCSV[pos - 3] == ')'){ 
+                if (linhaCSV[pos - 8] == '(' && linhaCSV[pos - 7] >= 48 && linhaCSV[pos - 7] <= 57) {
+                    break;
+                }
+                else{
+                    *year = 9999;
+                    return;
+                }
             }
         }
     }
@@ -109,6 +134,27 @@ void extraiYear(char linhaCSV[], int *year){
     //printf("String: %s\n", yearStr);
 
     *year = atoi(yearStr);
+}
+*/
+
+void extraiYear(char linhaCSV[], int *year){
+    //Fazer uma copia de linhaCSV
+    char linhaCSVcopy[strlen(linhaCSV)];
+    strcpy(linhaCSVcopy,linhaCSV);
+    //Excluir todo mundo da vigula ate o final (DA COPIA)
+    char *prtV = strrchr(linhaCSVcopy, ',');
+    prtV[0] = '\0';
+    //Extrair ano
+    //strrchr procura a ultima ocorrence do char passado e retorna um ponteiro na posicao
+    char *prtP = strrchr(linhaCSVcopy, '(');
+    //prtP[0] aponta pra '('
+    //isdigit retorna 1 se o o char passado for um algarismo
+    if (prtP && isdigit(prtP[1]) && isdigit(prtP[2]) && isdigit(prtP[3]) && isdigit(prtP[4]) && prtP[5] == ')') {
+        char yearTemp[4] = {prtP[1], prtP[2], prtP[3], prtP[4]} ;
+        *year = atoi(yearTemp);
+    } else {
+        *year = -1;
+    }
 }
 
 void extraiGenres(char linhaCSV[], char genres[]){
@@ -272,6 +318,7 @@ int ordenaCustom(est_lista *lista, char opAlg, char opInfo){
             inicio = clock();
             shell_SortRating(lista);
             fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
             printf("[SHELL SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
         }
         else if (opInfo == 'n'){
@@ -279,6 +326,7 @@ int ordenaCustom(est_lista *lista, char opAlg, char opInfo){
             inicio = clock();
             shell_SortString(lista);
             fim = clock();
+            tempo_decorrido = ((double) (fim - inicio)) / CLOCKS_PER_SEC;
             printf("[SHELL SORT] Pronto! | Tempo: %f (s)\n", tempo_decorrido);
         }
 
