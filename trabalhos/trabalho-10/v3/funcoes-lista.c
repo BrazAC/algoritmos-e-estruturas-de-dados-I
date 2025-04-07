@@ -25,6 +25,9 @@ void lista_insereFinal(est_lista *lista, int movieId, int year, char genres[], c
     lista->lista[lista->cont].year = year;
     strcpy(lista->lista[lista->cont].genres, genres);
     strcpy(lista->lista[lista->cont].title, title);
+    if(title == " "){
+        printf("linha-> %s\n", title);
+    }
     lista->lista[lista->cont].contMovieId = 0;
     lista->lista[lista->cont].averageRating = 0.0;
     
@@ -179,28 +182,35 @@ void extraiGenres(char linhaCSV[], char genres[]){
     genres[cont] = '\0';
 }
 
-void extraiName(char linhaCSV[], char name[]){
-    int cont = 0, pos = 0;
-
-    //Movendo da esquerda pra direita ate uma virgula
-    while(linhaCSV[cont] != ','){
-        cont ++;
+void extraiName(char linhaCSV[], char name[]) {
+    char *prtUltimoParenteses = strrchr(linhaCSV, '(');
+    if (prtUltimoParenteses == NULL) {
+        //printf("linha-> %s\n", linhaCSV);
+        //Se nao tem '(' e pq nao tem ano, se nao tem ano nao e pra adicionar
+        name[0] = '\0';
+        return;
     }
+    //"cortando o pedaco fora apos a virgula antes dos generos"
+    prtUltimoParenteses[0] = '\0';
     
-    //Mover cont pra prox char
-    cont ++;
-    
-    //Copiar char apenas se for um char antes de (
-    while(linhaCSV[cont] != '('){
-        name[pos] = linhaCSV[cont];
-        cont ++;
-        pos ++;
+    char *prtPrimeiraVirgula = strchr(linhaCSV, ',');
+   
+    //movendo ponteiro ate o primeiro char nao especial
+    while (!isalnum((unsigned char)prtPrimeiraVirgula[0])) {
+        if (prtPrimeiraVirgula[0] == '\0') break;  
+        //movendo prt 1 endereco a frente
+        prtPrimeiraVirgula++;
     }
-    //Finalizar string removendo espaco
-    name[pos - 1] = '\0';
-    //printf("String: %s\n", yearStr);
 
-    name[cont + 1] = '\0';
+    //se a linha tem algum char nao especial
+    if (prtPrimeiraVirgula[0] != '\0') {
+        strcpy(name, prtPrimeiraVirgula);  
+    } 
+    //se a linha inteira nao tiver nenhum char nao especial
+    else {
+        //printf("linha-> %s\n", linhaCSV);
+        name[0] = '\0';
+    }
 }
 
 void extraiMovieID_2(char linhaCSV[], int *movieId){

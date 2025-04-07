@@ -42,19 +42,25 @@ int main(){
 
             //Extraindo nome
             extraiName(linhaCSV, title);
-
-            lista_insereFinal(&listaAvaliacoes, movieId, year, genres, title);
+            
+            if (title[0] != '\0') {
+                lista_insereFinal(&listaAvaliacoes, movieId, year, genres, title);
+            }
+            
+            //printf("Title-> %s\n", title);
             //printf("MovieId: %d Title: %s Year: %d Genres: %s\n", movieId, title, year, genres);
             
             //Feedback de extracao
+            /*
             contLeiturasFeedback ++;
             printf("MOVIES.CSV -> Leitura %d realizada, faltando %d leituras\n", contLeiturasFeedback, (MAX_ELEM_MOVIES_CSV - contLeiturasFeedback));
             printf("\033[1A");
+            */
         }
     }   
     printf("\n");
     fclose(moviesCSV);
-    
+    /*
     //---Extraindo de ratings.csv 
     FILE *ratingsCSV = fopen("./base-de-dados/ml-32m/ratings.csv", "r");
     int cont;
@@ -99,7 +105,7 @@ int main(){
                     tempRating,
                     listaAvaliacoes.lista[cont].averageRating, 
                     listaAvaliacoes.lista[cont].contMovieId);
-                */
+                *//*
                 break;
             }
             if(cont >= listaAvaliacoes.cont){
@@ -132,8 +138,8 @@ int main(){
             O filme nao tem avalicao (vai para o final pra nao "atrapalhar os metodos de ordenacao")
             Conclui que se o struct esta com averageRating com o mesmo valor incializado, e pq o
             arquivo de avaliacoes nao tem uma avaliacao pra esse filme depois de pesquisar por "0.0" ou "0"
-            no arquivo e nao encontrar, e, faz sentido logicamente
-            */
+            no arquivo e nao encontrar, e, se é 0 é pq 0 é o valor de inicialização do struct
+            *//*
             listaAvaliacoes.lista[i].averageRating = 6;
         }else{
             listaAvaliacoes.lista[i].averageRating = listaAvaliacoes.lista[i].averageRating / listaAvaliacoes.lista[i].contMovieId;
@@ -151,7 +157,7 @@ int main(){
     printf("\nO tempo decorrido de para o calculo de medias foi: %f segundos\n\n", tempo_decorrido3); 
     
     fclose(ratingsCSV);
-    
+    */
     printf("Pressione enter para continuar para a interface\n");
     while (getchar() != '\n');
     getchar();
