@@ -1,0 +1,5 @@
+- Criar funções da lista
+- Extrair dados e carregar na lista
+- Criar funções do heap
+- Extrair dados da lista inserindo no heap
+- Criar menu
