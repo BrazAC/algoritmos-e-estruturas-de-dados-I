@@ -1,5 +1,21 @@
+
+====-CRIAR FUNCOES QUE PARA:
 - Criar funções da lista
-- Extrair dados e carregar na lista
+    Estrutura   +
+    Inserção    +
+    Remoção     +
 - Criar funções do heap
-- Extrair dados da lista inserindo no heap
-- Criar menu
+    Estrutura   +
+    Inserção    +
+    Remoção     +
+- Extrair dados da lista inserindo no heap sem remover da lista (de acordo com o criterio) 
+
+=====-LOGICA MAIN
+- Extrair dados e carregar na lista
+- Mostrar menu
+    Receber criterio de chave
+    Receber quantos dados deseja visualizar
+    Carregar TODOS os dados de acordo com o criterio de chave
+    Remover e mostrar dados do heap de acordo com a quantidade recebida antes
+
+

@@ -55,5 +55,25 @@ tipo_no_lista lista_removeInicio(tipo_no_lista **lista){
     return noRm;
 }
 
+void lista_mostra(tipo_no_lista *lista){
+    if(lista == NULL){
+        printf("[AVISO] Tentando mostrar lista vazia!\n");
+        return;
+    }
 
+    tipo_no_lista *aux = lista;
+    while(aux != NULL){
+        printf("_________________________________________________________________________________________\n");
+        printf("| Pais/Regiao: %s\n", aux->pais);
+        printf("| Confirmados: %d | Mortes: %d | Recuperados: %d | Mortes/100: %d | Recuperados/100: %d |\n", 
+            aux->confirmados, 
+            aux->mortes, 
+            aux->recuperados,
+            aux->mortes100,
+            aux->recuperados100
+        );
+
+        aux = aux->prox;
+    }
+}
 
