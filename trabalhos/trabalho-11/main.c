@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "funcoes.h"
-#include <time.h>
 
 int main(){
     //====Criar estruturas
@@ -10,51 +9,81 @@ int main(){
     tipo_heap heapPrincipal;
     heapPrincipal.cont = 0;
 
-    srand(time(NULL));
-
     //====Extrair dados do arquivo e carregar na lista dinamica
-    for(int i = 1; i <= 5; i++){
-        //Criando noh temporario para armazenar os dados extraidos
-        tipo_no_lista tempNoh;
+    //Abrir arquivo
+    FILE *arquivo = fopen("./country_wise_latest.xls", "r");
 
-        //Extrair dados do arquivo, inserindo no noh temporario
-        tempNoh.confirmados = (rand() % 100) + 1;
-        strcpy(tempNoh.pais, "teste yupi");
-
-        //Inserir informacoes do noh temporario na lista
-        lista_insereInicio(&listaPrincipal, tempNoh);
+    //Verificar se o programa conseguiu abriu o arquivo
+    if(arquivo == NULL){
+        printf("[ERRO] fopen() retornou NULL\n");
+        return 0;
     }
 
-    lista_mostra(listaPrincipal);
+    //Carregar dados na lista
+    main_carregaLista(arquivo, &listaPrincipal);
+
+    //Fechar arquivo
+    fclose(arquivo);
 
     //====Menu
+    int op, quantDados;
+    char criterio;
+    do {
+        printf("\n");
+        printf("---------------------------------------------------------\n");
+        printf("=========================|MENU|==========================\n");
+        printf("---------------------------------------------------------\n");
+        printf("Escolha uma opcao:\n");
+        printf("1 - Escolher criterio de visualizacao\n");
+        printf("0 - Encerrar programa\n");
+        printf("=> ");
+        scanf("%d", &op);
 
+        if (op == 1) {
+            printf("\n");
+            printf("Escolha um criteio:\n");
+            printf("c - Numero de casos de Covid-19\n");
+            printf("m - Numero de mortes por Covid-19\n");
+            printf("r - Nmero de pessoas recuperadas da Covid-19\n");
+            printf("x - Voltar ao menu\n");
+            printf("=> ");
+            scanf(" %c", &criterio);
 
-    /*
-    FUNCAO QUE INSERE CADA ELEMENTO DA LISTA (SEM REMOVER DELA) NO HEAP
+            if(criterio == 'c' || criterio == 'm' || criterio == 'r'){
+                printf("Informe a quantidade de dados para visualizar:\n");
+                printf("=> ");
+                scanf(" %d", &quantDados);
 
-    //Prt auxiliar para iterar pela lista
-    tipo_no_lista *aux;
-    aux = listaPrincipal;
+                //Carregar dados no heap
+                main_carregaHeap(&heapPrincipal, listaPrincipal, criterio);
 
-    //Determinar qual criterio de chave foi escolhido
-    heapPrincipal.criterioChave = 'c';
+                //Remover e mostrar a quantidade informada
+                heap_removeEmostraX(&heapPrincipal, quantDados);
 
-    //Inserir dados da lista no heap maximo conforme o criterio escolhido
-    while(aux != NULL){
-        //Inserir dados do noh atual no heap
-        heap_inserePorCriterio(&heapPrincipal, *aux, heapPrincipal.criterioChave);
+                //Esvaziar heap para a possivel proxima leitura
+                heapPrincipal.cont = 0;
 
-        //Acancar para o proximo noh
-        aux = aux->prox;
-    }
-    */
+                //Perguntar se quer voltar ao menu
+                printf("\nVoltar ao menu para verificar outro tipo de informacao?\n");
+                printf("1 - Sim\n");
+                printf("0 - Nao (Encerrar programa)\n");
+                printf("=> ");
+                scanf("%d", &op);
 
-
-
-
-    
-    heap_removeEmostraX(&heapPrincipal, 10);
+            }else if(criterio == 'x'){
+                printf("\n");
+            }
+            else{
+                printf("[ERRO] Informe um criterio valido!\n");
+            }
+        }
+        else if(op == 0){
+            break;
+        }
+        else{
+            printf("[ERRO] Insira uma opcao valida!\n");
+        }
+    }while(op);
 
     return 0;
 }

@@ -18,9 +18,9 @@ tipo_no_lista* alocaNo(tipo_no_lista novoNo){
     return novoNoAlocado;
 }
 
-int lista_insereInicio(tipo_no_lista **lista, tipo_no_lista novoNoh){
+int lista_insereInicio(tipo_no_lista **lista, tipo_no_lista nohAux){
     if (*lista == NULL) {
-        tipo_no_lista *novoNo = alocaNo(novoNoh);
+        tipo_no_lista *novoNo = alocaNo(nohAux);
          
         if (novoNo != NULL) {
             *lista = novoNo;
@@ -30,7 +30,7 @@ int lista_insereInicio(tipo_no_lista **lista, tipo_no_lista novoNoh){
         return -1;
     }
 
-    tipo_no_lista *novoNo = alocaNo(novoNoh);
+    tipo_no_lista *novoNo = alocaNo(nohAux);
     if (novoNo == NULL) return -1;
 
     tipo_no_lista *aux = *lista;
@@ -62,10 +62,11 @@ void lista_mostra(tipo_no_lista *lista){
     }
 
     tipo_no_lista *aux = lista;
+    printf("|Pais/Regiao                     |Confirmados|Mortes|Recuperados|Mortes/100|Recuperados/100|\n");
+    printf("|--------------------------------|-----------|------|-----------|----------|---------------|\n");
     while(aux != NULL){
-        printf("_________________________________________________________________________________________\n");
-        printf("| Pais/Regiao: %s\n", aux->pais);
-        printf("| Confirmados: %d | Mortes: %d | Recuperados: %d | Mortes/100: %d | Recuperados/100: %d |\n", 
+        printf("|%-32s|%-11d|%6d|%11d|%10.2f|%15.2f|\n", 
+            aux->pais,
             aux->confirmados, 
             aux->mortes, 
             aux->recuperados,

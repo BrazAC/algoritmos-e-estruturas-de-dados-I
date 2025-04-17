@@ -16,25 +16,25 @@ typedef struct est_no_lista{
 
     //Dados gerais
     char pais[MAX_CHAR_COUNTRY];
-    unsigned int mortes100;
-    unsigned int recuperados100; 
+    float mortes100;
+    float recuperados100; 
 
 } tipo_no_lista;
 
 /**
  * @brief Aloca novo no na memoria
- * @param novoNoh Endereco do ponteiro da lista
+ * @param nohAux Endereco do ponteiro da lista
  * @return Endereco do no alocado se sucesso, NULL se alocacao falhar
  */
-tipo_no_lista* alocaNo(tipo_no_lista novoNoh);
+tipo_no_lista* alocaNo(tipo_no_lista nohAux);
 
 /**
  * @brief Insere noh na lista encadeada
  * @param lista Endereco do ponteiro da lista
- * @param dado Noh a ser inserido
+ * @param nohAux Noh auxiliar com os dados para inserscao
  * @return 0 se sucesso, -1 se alocacao falhar
  */
-int lista_insereInicio(tipo_no_lista **lista, tipo_no_lista novoNoh);
+int lista_insereInicio(tipo_no_lista **lista, tipo_no_lista nohAux);
 
 /**
  * @brief Remove noh da lista encadeada
@@ -61,8 +61,8 @@ typedef struct est_dado_heap{
 
     //Dados gerais
     char pais[MAX_CHAR_COUNTRY];
-    unsigned int mortes100;
-    unsigned int recuperados100; 
+    float mortes100;
+    float recuperados100; 
 } tipo_dado_heap;
 
 typedef struct est_heap{
@@ -73,8 +73,8 @@ typedef struct est_heap{
 
 /**
  * @brief Insere um elemento no heap a partir de um no vindo de uma lista escolhendo o criterio de selecao de chave
- * @param heap Heap para insersao do dado]
- * @param novoDado No da lista com os dados
+ * @param heap Endereco do heap para insersao do dado
+ * @param novoDado Noh da lista com os dados
  * @param criterio Criterio para definir qual chave sera usada, 'c' confirmados, 'm' mortes, 'r' recuperados 
  * @return -1 se o heap estiver cheio, 0 se sucesso
  */
@@ -95,5 +95,22 @@ void heap_removeEmostraX(tipo_heap *heap, int quant);
  */
 tipo_dado_heap heap_removeRaiz(tipo_heap *heap);
 void heap_desceHeap(tipo_heap *heap, int pos);
+
+//======================================================-Logica principal
+/**
+ * @brief Carrega todos os dados da lista no heap cadastrando a chave de acordo com o criterio escolhido
+ * @param heap Endereco do heap
+ * @param lista Endereco da lista
+ * @param criterio Criterio para definir qual chave sera usada, 'c' confirmados, 'm' mortes, 'r' recuperados 
+ */
+void main_carregaHeap(tipo_heap *heap, tipo_no_lista *lista, char criterio);
+
+/**
+ * @brief Carrega todos os dados do arquivo na lista
+ * @param arquivo Endereco do arquivo
+ * @param lista Endereco do ponteiro da lista
+ */
+void main_carregaLista(FILE *arquivo, tipo_no_lista **lista);
+
 
 #endif

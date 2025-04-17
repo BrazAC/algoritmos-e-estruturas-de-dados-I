@@ -119,15 +119,15 @@ void heap_removeEmostraX(tipo_heap* heap, int quant){
     //Extrair chave escolhida no criterio
     if (heap->criterioChave == 'c'){
         //Casos totais (confirmados)
-        printf("\n[CRITERIO: %s] MOSTRANDO INFORMACOES SOBRE CASOS\n", "confirmados");
+        printf("\n[CRITERIO: %s] MOSTRANDO INFORMACOES REMOVIDAS DO HEAP\n", "confirmados");
     }
     else if (heap->criterioChave == 'm'){
         //Casos de morte
-        printf("\n[CRITERIO: %s] MOSTRANDO INFORMACOES SOBRE CASOS\n", "mortos");
+        printf("\n[CRITERIO: %s] MOSTRANDO INFORMACOES REMOVIDAS DO HEAP\n", "mortos");
     }
     else if(heap->criterioChave == 'r'){
         //Casos de recuperacao
-        printf("\n[CRITERIO: %s] MOSTRANDO INFORMACOES SOBRE CASOS\n", "recuperados");
+        printf("\n[CRITERIO: %s] MOSTRANDO INFORMACOES REMOVIDAS DO HEAP\n", "recuperados");
     }
     
 
@@ -141,22 +141,21 @@ void heap_removeEmostraX(tipo_heap* heap, int quant){
     }
     
     //Removendo e exibindo apenas ATE o maximo de elementos cadastrados no heap
+    printf("|Pais/Regiao                     |Confirmados|Mortes|Recuperados|Mortes/100|Recuperados/100|\n");
+    printf("|--------------------------------|-----------|------|-----------|----------|---------------|\n");
     while(quant != 0 && heap->cont > 0){
         //Remover elemento da raiz
         tipo_dado_heap tempRm = heap_removeRaiz(heap);
 
         //Exibir elemento removido
-        printf("_________________________________________________________________________________________\n");
-        printf("| Pais/Regiao: %s\n", tempRm.pais);
-        printf("| Confirmados: %d | Mortes: %d | Recuperados: %d | Mortes/100: %d | Recuperados/100: %d |\n", 
+        printf("|%-32s|%-11d|%6d|%11d|%10.2f|%15.2f|\n", 
+            tempRm.pais,
             tempRm.confirmados, 
             tempRm.mortes, 
             tempRm.recuperados,
             tempRm.mortes100,
             tempRm.recuperados100
         );
-
-        printf("heap contador: %d\n", heap->cont);
 
         //Decrementar contador da quantidade de elementos solicitados para remocao
         quant --;
