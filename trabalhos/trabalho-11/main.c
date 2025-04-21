@@ -4,12 +4,12 @@
 #include "funcoes.h"
 
 int main(){
-    //====Criar estruturas
+    //=========================================================CRIAR ESTRUTURAS
     tipo_no_lista *listaPrincipal = NULL;
     tipo_heap heapPrincipal;
     heapPrincipal.cont = 0;
 
-    //====Extrair dados do arquivo e carregar na lista dinamica
+    //===================EXTRAIR DADOS DO ARQUIVO E CARREGAR NA LISTA DINAMICA
     //Abrir arquivo
     FILE *arquivo = fopen("./country_wise_latest.xls", "r");
 
@@ -25,7 +25,7 @@ int main(){
     //Fechar arquivo
     fclose(arquivo);
 
-    //====Menu
+    //====================================================================MENU
     int op, quantDados;
     char criterio;
     do {
@@ -40,6 +40,7 @@ int main(){
         scanf("%d", &op);
 
         if (op == 1) {
+            //Escolha de criterio (qual chave sera cadastrada)
             printf("\n");
             printf("Escolha um criteio:\n");
             printf("c - Numero de casos de Covid-19\n");
@@ -50,6 +51,7 @@ int main(){
             scanf(" %c", &criterio);
 
             if(criterio == 'c' || criterio == 'm' || criterio == 'r'){
+                //Se o criterio for valido, obter a quantidade de remocoes
                 printf("Informe a quantidade de dados para visualizar:\n");
                 printf("=> ");
                 scanf(" %d", &quantDados);
