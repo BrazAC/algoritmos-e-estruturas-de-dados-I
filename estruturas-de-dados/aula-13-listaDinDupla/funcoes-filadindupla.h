@@ -10,7 +10,17 @@ typedef struct tipo_no{
 //Inserir
 tipo_no* alocaNo(int);
 int listaDinDupla_insereInicio(tipo_no**, int);
+int listaDinDupla_insereFim(tipo_no**, int);
 int listaDinDupla_inserePos(tipo_no**, int, int);
+
+//Remover
+int listaDinDupla_removeInicio(tipo_no**);
+int listaDinDupla_removeFinal(tipo_no**);
+int listaDinDupla_removePos(tipo_no**, int);
+int listaDinDupla_removeValor(tipo_no**, int);
+
+//Buscar
+tipo_no* listaDinDupla_buscaElemento(tipo_no**, int);
 
 //Visualizar
 int listaDinDupla_mostrar(tipo_no**);
