@@ -29,5 +29,10 @@ void arvMultNo_Ordem(tipo_no_arvM *nohArv);
 int arvMultNo_totalNos(tipo_no_arvM *nohArv);
 int arvMultNo_totalFolhas(tipo_no_arvM *nohArv);
 tipo_no_arvM* arvMultNo_buscaNo(tipo_no_arvM *nohArv, int chave);
+tipo_dado* arvMultNo_buscaDado(tipo_no_arvM *nohArv, int chave);
+
+//Remocao
+tipo_dado arvMultNo_remove(tipo_no_arvM **noh, int chave);
+
 
 #endif

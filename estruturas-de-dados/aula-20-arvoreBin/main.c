@@ -6,26 +6,25 @@ int main(){
     est_noArv *arvoreRaiz;
     arvoreRaiz = NULL;
 
-    arv_insere(&arvoreRaiz, 30, 33);
-    arv_insere(&arvoreRaiz, 91,73);
-    arv_insere(&arvoreRaiz, 15, 33);
-    arv_insere(&arvoreRaiz, 72, 87);
-    arv_insere(&arvoreRaiz, 61, 12);
-    arv_insere(&arvoreRaiz, 41, 54);
-    arv_insere(&arvoreRaiz, 10, 23);
-    arv_insere(&arvoreRaiz, 37, 23);
-    arv_insere(&arvoreRaiz, 98, 23);
-    arv_insere(&arvoreRaiz, 41, 23);
-    arv_insere(&arvoreRaiz, 94, 23);
-    arv_insere(&arvoreRaiz, 80, 23);
-    arv_insere(&arvoreRaiz, 26, 23);
-    arv_insere(&arvoreRaiz, 96, 23);
-    arv_insere(&arvoreRaiz, 10, 23);
-    
+    arv_insere(&arvoreRaiz, 10, 0);
+    arv_insere(&arvoreRaiz, 12, 0);
+    arv_insere(&arvoreRaiz, 7, 0);
+    arv_insere(&arvoreRaiz, 4, 0);
+    arv_insere(&arvoreRaiz, 9, 0);
+    arv_insere(&arvoreRaiz, 11, 0);
+    arv_insere(&arvoreRaiz, 13, 0);
+    arv_insere(&arvoreRaiz, 8, 0);
+    arv_insere(&arvoreRaiz, 3, 0);
 
+
+    imprime_arv_nivel(arvoreRaiz);
+    remove_no(&arvoreRaiz, 9);
+    printf("\n");
+    imprime_arv_nivel(arvoreRaiz);
 
     //E IIMPORTANTE VERIFICAR A ARVORE NAO APENAS COM A ORDEM
     //A impressao que mostra a verdadeira sequencia é a pre ordem
+    /*
     printf("Imprimindo em preOrdem\n");
     percurso_preOrdem(arvoreRaiz);
     printf("\n");
@@ -62,6 +61,7 @@ int main(){
 
     est_noArv *menorDado = arv_menorVal(arvoreRaiz);
     printf("Menor dado: %d\n", menorDado->dado);
+    */
 
     
 

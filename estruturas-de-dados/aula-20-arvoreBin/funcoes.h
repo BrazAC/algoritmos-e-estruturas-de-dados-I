@@ -30,7 +30,7 @@ int contabiliza_nos_nivel(est_noArv *noArv, int nivel);
 void imprime_rota(est_noArv *noArv, int chave); //Ate o no que eu quero
 //Falta
 est_noArv* arv_menorVal(est_noArv *noArv);
-est_noArv remove_no(est_noArv *noArv, int chave);
+est_noArv remove_no(est_noArv **noArv, int chave);
 
 
 

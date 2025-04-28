@@ -241,6 +241,43 @@ est_noArv* arv_maiorVal(est_noArv *noArv){
     }
 }
 
+est_noArv remove_no(est_noArv **noArv, int chave){
+    if (*noArv != NULL) {
+        if((*noArv)->chave == chave){
+            est_noArv dadoRm = *(*noArv);
+            if((*noArv)->esq == NULL && (*noArv)->dir == NULL){
+                free(*noArv);
+                *noArv = NULL;
+            }
+            else if((*noArv)->esq == NULL && (*noArv)->dir != NULL) {
+                est_noArv *filho = (*noArv)->dir;
+                free(*noArv);
+                *noArv = filho;
+            }
+            else if((*noArv)->dir == NULL && (*noArv)->esq != NULL) {
+                est_noArv *filho = (*noArv)->esq;
+                free(*noArv);
+                *noArv = filho;
+            }
+            else{
+                est_noArv *temp = arv_menorVal((*noArv)->dir);
+                (*noArv)->chave = temp->chave;
+                (*noArv)->dado = temp->dado;
+                remove_no(&((*noArv)->dir), temp->chave);
+            }
+            return dadoRm;
+        }
+        else{
+            if(chave > (*noArv)->chave){
+                remove_no(&((*noArv)->dir), chave);
+            }
+            else{
+                remove_no(&((*noArv)->esq), chave);
+            }
+        }
+    }
+}
+/*
 est_noArv arv_removeNo(est_noArv **noArv, int chave){
     if (*noArv == NULL) {
         est_noArv nullNode;
@@ -256,6 +293,8 @@ est_noArv arv_removeNo(est_noArv **noArv, int chave){
             if ((*noArv)->esq == NULL && (*noArv)->dir == NULL){
                 //Atualiza prt esq ou dir do pai (que aponta para o no atual, portanto é o nó atual)
                 *noArv = NULL;
+                //Libera o noh
+                free(*noArv);
                 //Retorna o removido
                 return noRm;
             }
@@ -279,10 +318,10 @@ est_noArv arv_removeNo(est_noArv **noArv, int chave){
         }
         else{
             if (chave < (*noArv)->chave){
-                return remove_no((*noArv)->esq, chave);
+                return arv_removeNo((*noArv)->esq, chave);
             }
             else{
-                return remove_no((*noArv)->dir, chave);
+                return arv_removeNo((*noArv)->dir, chave);
             }
         }
     }
@@ -329,3 +368,5 @@ est_noArv *remove_no(est_noArv *no, int chave){
         }
     }
 }
+*/
+
