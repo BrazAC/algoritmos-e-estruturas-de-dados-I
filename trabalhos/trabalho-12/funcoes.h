@@ -17,6 +17,10 @@ typedef struct est_noh_am{
     //tipo_no_ab *ref_arv_produtos;
 } tipo_noh_am;
 
+//--------------------------Funcoes main
+void main_carregaPrincipais(FILE* arquivo, tipo_noh_am** arvore);
+void main_carregaSecundarias(FILE* arquivo, tipo_noh_am** arvore);
+
 //--------------------------Funcoes arvore n-aria
 //Insercao
 tipo_noh_am* alocaNohAm(int id_cat, int id_pai_cat, char nome_cat[]);

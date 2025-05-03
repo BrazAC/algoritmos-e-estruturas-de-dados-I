@@ -1,20 +1,43 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "funcoes.h"
 
 int main(){
+    //===============================================| Inicializacao das arvores
     tipo_noh_am *arv_categorias = NULL;
 
-    am_inserePorIdPai(&arv_categorias, 1, 0, "Casa");
-    am_inserePorIdPai(&arv_categorias, 2, 0, "Pessoal");
-    am_inserePorIdPai(&arv_categorias, 3, 0, "Automotivo");
+    //===============================================| Carregar categorias
+    //---|Categorias principais
+    //Abrir arquivo
+    FILE *fcat_principais = fopen("./categorias_principais.csv", "r");
+    if(fcat_principais == NULL){
+        printf("[ERRO] fopen categorias_principais.csv retornou null");
+        return 0;
+    }
+    //Extrair dados
+    main_carregaPrincipais(fcat_principais, &arv_categorias);
+    //Fechar arquivo
+    fclose(fcat_principais);
 
-    am_inserePorIdPai(&arv_categorias, 65, 2, "Oral higiene");
-    am_inserePorIdPai(&arv_categorias, 17, 3, "Automotive Tools");
+    //---|Categorias secundarias/diversas
+    FILE *fcat_secundarias = fopen("./amazon_categories_editado.csv", "r");
+    if(fcat_secundarias == NULL){
+        printf("[ERRO] fopen amazon_categories_editado.csv retornou null");
+        return 0;
+    }
+    //Extrair dados
+    main_carregaSecundarias(fcat_secundarias, &arv_categorias);
+    //Fechar arquivo
+    fclose(fcat_secundarias);
 
+    /*
+    printf("NIVEL 0\n");
+    am_mostraNivel(arv_categorias, 0);
+    printf("NIVEL 1\n");
     am_mostraNivel(arv_categorias, 1);
-    //am_preOrdem(arv_categorias);
     printf("\n");
+    */
 
     return 0;
 }

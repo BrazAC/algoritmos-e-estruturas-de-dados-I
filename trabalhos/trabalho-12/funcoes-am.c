@@ -57,7 +57,7 @@ void am_mostraNivel(tipo_noh_am *noh, int nivel){
     else{
         if(nivel == 0){
             for(int i = 0; i < noh->cont; i++){
-                printf("[%d|%s|%d]", noh->dados[i].id, noh->dados[i].nome, noh->dados[i].id_pai);
+                printf("[%d|%s|%d]\n", noh->dados[i].id, noh->dados[i].nome, noh->dados[i].id_pai);
             }
         }
         else{
@@ -75,6 +75,7 @@ void am_preOrdem(tipo_noh_am *noh){
     else{
         for(int i = 0; i < noh->cont; i++){
             printf("[%d|%s|%d]", noh->dados[i].id, noh->dados[i].nome, noh->dados[i].id_pai);
+            
         }
         printf("\n");
 
