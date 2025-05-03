@@ -14,8 +14,10 @@ tipo_noh_am* alocaNohAm(int id_cat, int id_pai_cat, char nome_cat[]){
     novaCat.id = id_cat;
     novaCat.id_pai = id_pai_cat;
     strcpy(novaCat.nome, nome_cat);
-    novoNoh->dados[0] = novaCat;
+    novaCat.possuiSubArvoreBin = 0;
+    novaCat.sub_arv_bin = NULL;
 
+    novoNoh->dados[0] = novaCat;
     novoNoh->cont = 1;
 
     return novoNoh;
@@ -29,8 +31,12 @@ void am_inserePorIdPai(tipo_noh_am **noh, int id_cat, int id_pai_cat, char nome_
             (*noh)->dados[(*noh)->cont].id = id_cat;
             (*noh)->dados[(*noh)->cont].id_pai = id_pai_cat;
             strcpy((*noh)->dados[(*noh)->cont].nome, nome_cat);
+            (*noh)->dados[(*noh)->cont].sub_arv_bin = NULL;
+            (*noh)->dados[(*noh)->cont].possuiSubArvoreBin = 0;
+
             (*noh)->cont ++;
         }
+        //printf("%d\n", (*noh)->cont);
     }else{
         //Encontrar a posicao da categoria pai procurada
         int pos = 0;
@@ -41,12 +47,17 @@ void am_inserePorIdPai(tipo_noh_am **noh, int id_cat, int id_pai_cat, char nome_
 
         if(nohFilho == NULL){
             (*noh)->filhos[pos] = alocaNohAm(id_cat, id_pai_cat, nome_cat);
+            //printf("%d\n", (*noh)->filhos[pos]->cont);
         }else{
             nohFilho->dados[nohFilho->cont].id = id_cat;
             nohFilho->dados[nohFilho->cont].id_pai = id_pai_cat;
             strcpy(nohFilho->dados[nohFilho->cont].nome, nome_cat);
+            nohFilho->dados[nohFilho->cont].possuiSubArvoreBin = 0;
+            nohFilho->dados[nohFilho->cont].sub_arv_bin = NULL;
             nohFilho->cont ++;
+            //printf("%d\n", nohFilho->cont);
         }  
+        
     }
 }
 
@@ -57,7 +68,7 @@ void am_mostraNivel(tipo_noh_am *noh, int nivel){
     else{
         if(nivel == 0){
             for(int i = 0; i < noh->cont; i++){
-                printf("[%d|%s|%d]\n", noh->dados[i].id, noh->dados[i].nome, noh->dados[i].id_pai);
+                printf("[%5d|%50s|%5d|%d]\n", noh->dados[i].id, noh->dados[i].nome, noh->dados[i].id_pai,noh->dados[i].possuiSubArvoreBin);
             }
         }
         else{
@@ -84,3 +95,4 @@ void am_preOrdem(tipo_noh_am *noh){
         }
     }
 }
+

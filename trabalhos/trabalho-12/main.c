@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 #include "funcoes.h"
+#include <time.h>
 
 int main(){
     //===============================================| Inicializacao das arvores
     tipo_noh_am *arv_categorias = NULL;
+    tipo_noh_ab *arv_produtos = NULL;
 
     //===============================================| Carregar categorias
     //---|Categorias principais
@@ -30,14 +32,28 @@ int main(){
     main_carregaSecundarias(fcat_secundarias, &arv_categorias);
     //Fechar arquivo
     fclose(fcat_secundarias);
-
-    /*
-    printf("NIVEL 0\n");
     am_mostraNivel(arv_categorias, 0);
-    printf("NIVEL 1\n");
     am_mostraNivel(arv_categorias, 1);
-    printf("\n");
-    */
+    //===============================================| Carregar produtos
+    //Abrir arquivo
+    FILE *fproducts = fopen("./amazon_products.csv", "r");
+    if(fproducts == NULL){
+        printf("[ERRO] fopen amazon_products.csv retornou null");
+        return 0;
+    }
+    //Extrair dados
+    clock_t inicio, fim;
+    double tempo_gasto;
+    inicio = clock();
+    main_carregaProdutos(fproducts, &arv_produtos);
+    fim = clock();
+    tempo_gasto = (double)(fim - inicio) / CLOCKS_PER_SEC;
+    printf("Tempo gasto carregamento arvore binaria: %f segundos\n", tempo_gasto);
+    //Fechar arquivo
+    fclose(fproducts);
+
+    //===============================================| Menu
+    
 
     return 0;
 }
