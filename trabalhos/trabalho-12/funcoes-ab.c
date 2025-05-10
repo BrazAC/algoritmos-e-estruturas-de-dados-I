@@ -34,6 +34,8 @@ void ab_carregaSubArvoreBin(tipo_categoria *categoria, tipo_noh_ab* arv_produtos
     }else{
         //Procurar na arvore bin de produtos todos aqueles com o id em questao, e cadastrar na sub arvore
         ab_buscaTodosEcadastra(&(categoria->sub_arv_bin), arv_produtos, categoria->id);
+        //Atualizar flag
+        categoria->possuiSubArvoreBin = 1;
     }
 }
 
@@ -46,6 +48,10 @@ void ab_buscaTodosEcadastra(tipo_noh_ab **sub_arv_bin, tipo_noh_ab *arv_produtos
         if(arv_produtos->categoria == id_categoria){
             //Cadastre os dados na sub-arvore
             ab_insere(sub_arv_bin, arv_produtos->preco, arv_produtos->codigo, arv_produtos->titulo, arv_produtos->avaliacao, arv_produtos->categoria);
+            //printf("Cadastrado: [%d|%s]\n", arv_produtos->categoria,arv_produtos->titulo);
+            //Chame recursivamente para os filhos
+            ab_buscaTodosEcadastra(sub_arv_bin, arv_produtos->esq, id_categoria);
+            ab_buscaTodosEcadastra(sub_arv_bin, arv_produtos->dir, id_categoria);
         }
         else{
             //Chame recursivamente para os filhos
@@ -59,7 +65,9 @@ void ab_mostraNivel(tipo_noh_ab *noh, int nivel){
     if(noh == NULL){
         return;
     }else{
+        //printf("Cadastrado: [%s]\n", noh->titulo);
         if(nivel == 0){
+            //printf("Cadastrado: [%s]\n", noh->titulo);
             printf("[%-7.2f|%10s|%3d|%2.1f|%200s]\n", 
             noh->preco,
             noh->codigo,
@@ -70,5 +78,42 @@ void ab_mostraNivel(tipo_noh_ab *noh, int nivel){
             ab_mostraNivel(noh->esq, nivel - 1);
             ab_mostraNivel(noh->dir, nivel - 1);
         }
+    }
+}
+
+int ab_calculaAltura(tipo_noh_ab *noh){
+    if(noh == NULL){
+        return -1;
+    }else{
+        int h_esq = ab_calculaAltura(noh->esq);
+        int h_dir = ab_calculaAltura(noh->dir);
+
+        if(h_esq > h_dir){
+            return 1 + h_esq;
+        }else{
+            return 1 + h_dir;
+        }
+    }
+}
+
+void ab_mostraArvore(tipo_noh_ab *noh){
+    int altura = ab_calculaAltura(noh);
+    
+    for (int i = 0; i <= altura; i++) {
+        printf("MOSTRANDO NIVEL %d\n", i);
+        ab_mostraNivel(noh, i);
+    }
+}
+
+tipo_noh_ab* ab_buscaProduto(tipo_noh_ab *noh, char codigoProduto[]){
+    if(noh != NULL){
+        if(strcmp(codigoProduto, noh->codigo) == 0){
+            return noh;
+        }else{
+            return ab_buscaProduto(noh->esq, codigoProduto);
+            return ab_buscaProduto(noh->dir, codigoProduto);
+        }
+    }else{
+        return NULL;
     }
 }

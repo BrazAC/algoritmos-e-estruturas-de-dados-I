@@ -46,10 +46,14 @@ void main_carregaProdutos(FILE* arquivo, tipo_noh_ab** arvore);
 //Insercao
 tipo_noh_am* alocaNohAm(int id_cat, int id_pai_cat, char nome_cat[]);
 void am_inserePorIdPai(tipo_noh_am **noh, int id_cat, int id_pai_cat, char nome_cat[]);
+//Busca
+tipo_categoria* am_buscaCategoria(tipo_noh_am *arvore, int id_categoria);
 //Visualizacao 
 void am_mostraNivel(tipo_noh_am *noh, int nivel);
 void am_mostraArv(tipo_noh_am *noh);
 void am_preOrdem(tipo_noh_am *noh);
+//Especial
+void am_carregaTodasSubarvores(tipo_noh_am *arvore, tipo_noh_ab* arv_produtos);
 
 //--------------------------Funcoes arvore binaria
 //Insercao
@@ -57,7 +61,12 @@ tipo_noh_ab* alocaNoh(float preco, char codigo[], char titulo[], float avaliacao
 void ab_insere(tipo_noh_ab **noh, float preco, char codigo[], char titulo[], float avaliacao, int id_categoria);
 void ab_carregaSubArvoreBin(tipo_categoria *categoria, tipo_noh_ab* arv_produtos);
 void ab_buscaTodosEcadastra(tipo_noh_ab **sub_arv_bin, tipo_noh_ab *arv_produtos, int id_categoria);
+//Busca
+tipo_noh_ab* ab_buscaProduto(tipo_noh_ab *noh, char codigoProduto[]);
 //Visualizacao
 void ab_mostraNivel(tipo_noh_ab *noh, int nivel);
+int ab_calculaAltura(tipo_noh_ab *noh);
+void ab_mostraArvore(tipo_noh_ab *noh);
+int ab_mostraXmaiores(tipo_noh_ab *noh ,int quant);
 
 #endif

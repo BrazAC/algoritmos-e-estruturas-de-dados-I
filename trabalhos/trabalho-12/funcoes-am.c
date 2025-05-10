@@ -79,6 +79,57 @@ void am_mostraNivel(tipo_noh_am *noh, int nivel){
     }
 }
 
+tipo_categoria* am_buscaCategoria(tipo_noh_am *arvore, int id_categoria){
+    //iterar por todas subcategorias
+    for(int j = 0; j < arvore->cont; j++){
+        //Referencia do filo esquerdo
+        tipo_noh_am *filhoEsquerdo = arvore->filhos[j];
+
+        //Se tiver filho esquerdo nao e subcategoria (as subcategorias estao no filho esquerdo)
+        if(filhoEsquerdo != NULL){
+            //Procurar nas subcategorias do filho esquerdo
+            for(int i = 0; i < filhoEsquerdo->cont; i++){
+                //Se o id da categoria procurada for igual ao id da categoria atual
+                if(filhoEsquerdo->dados[i].id == id_categoria){
+                    //Retornar endereco da categoria
+                    return &(filhoEsquerdo->dados[i]);
+                }
+            }
+        }
+        //Se nao tiver filho esquerdo, a categoria atual e subcategoria
+        else{
+            //Se o id da categoria procurada for igual ao id da categoria atual
+            if(arvore->dados[j].id == id_categoria){
+                //Retornar endereco da subcategoria
+                return &(arvore->dados[j]);
+            }
+        }
+    }
+
+    //Iterou por todos as categorias e nao encontrou a desejada (id de categoria invalido)
+    return NULL;
+}
+
+void am_carregaTodasSubarvores(tipo_noh_am *arvore, tipo_noh_ab* arv_produtos){
+    //iterar por todas subcategorias
+    for(int j = 0; j < arvore->cont; j++){
+        //Referencia do filo esquerdo
+        tipo_noh_am *filhoEsquerdo = arvore->filhos[j];
+
+        //Se tiver filho esquerdo, nao e subcategoria (as subcategorias estao no filho esquerdo)
+        if(filhoEsquerdo != NULL){
+            //Procurar nas subcategorias do filho esquerdo
+            for(int i = 0; i < filhoEsquerdo->cont; i++){
+                ab_carregaSubArvoreBin(&(filhoEsquerdo->dados[i]), arv_produtos);
+            }
+        }
+        //Se nao tiver filho esquerdo, a categoria atual e subcategoria
+        else{
+            ab_carregaSubArvoreBin(&arvore->dados[j], arv_produtos);
+        }
+    }
+}
+
 void am_preOrdem(tipo_noh_am *noh){
     if(noh == NULL){
         return;

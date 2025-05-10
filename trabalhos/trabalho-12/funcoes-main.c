@@ -124,10 +124,10 @@ void main_carregaProdutos(FILE* arquivo, tipo_noh_ab** arvore){
     int id_cat;
 
     //Extrair dados
+    int contExtracoes = 100000;
     char fstring[1000];
-    int cont = 100000;
-    while(fgets(fstring, 1000, arquivo) != NULL && cont > 0){
-        cont --;
+    while(fgets(fstring, 1000, arquivo) != NULL && contExtracoes > 0){
+        contExtracoes --;
         //printf("%s\n", fstring);
         //Obtendo um ponteiro que aponta pra primeira virgula da string da esquerda pra direita
         char *prtVirgulaEsq = strchr(fstring, ',');
